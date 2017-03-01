@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>TetrixBoard.qml</file>
+        <file>frame.obj</file>
+        <file>roundCube.obj</file>
+    </qresource>
+</RCC>

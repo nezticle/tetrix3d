@@ -11,6 +11,7 @@
 #include <Qt3DExtras/QForwardRenderer>
 #include <Qt3DRender/QRenderSettings>
 #include <Qt3DRender/QMesh>
+#include <Qt3DCore/QTransform>
 #include <Qt3DExtras/QDiffuseMapMaterial>
 #include <Qt3DExtras/QPhongMaterial>
 #include <Qt3DRender/QDirectionalLight>
@@ -21,7 +22,6 @@ TetrixGameScene::TetrixGameScene(QObject *parent)
     : QObject(parent)
     , m_rootEntity(new Qt3DCore::QEntity())
     , m_viewportSize(QSize(480, 600))
-    , m_board(new TetrixBoard(m_rootEntity, this))
 {
     // Scene Camera
     m_camera = new Qt3DRender::QCamera(m_rootEntity);
@@ -49,7 +49,13 @@ TetrixGameScene::TetrixGameScene(QObject *parent)
     // Game Objects
     createPlayArea();
 
+    // Logical Entity containg blocks
+    auto boardContainer = new Qt3DCore::QEntity(m_rootEntity);
+    auto boardTransform = new Qt3DCore::QTransform(boardContainer);
+    boardTransform->setTranslation(QVector3D(-BoardWidth * 0.5 + 0.5, 0, -BoardHeight * 0.5));
+    boardContainer->addComponent(boardTransform);
 
+    m_board = new TetrixBoard(boardContainer, this);
     m_board->start();
 }
 
@@ -98,6 +104,6 @@ void TetrixGameScene::createPlayArea()
 
     //Mesh
     auto frameMesh = new Qt3DRender::QMesh(frameEntity);
-    frameMesh->setSource(QUrl("qrc:/frame.obj"));
+    frameMesh->setSource(QUrl("qrc:/frame2.obj"));
     frameEntity->addComponent(frameMesh);
 }

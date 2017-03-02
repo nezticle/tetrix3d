@@ -13,7 +13,7 @@ TetrixPieceEntity::TetrixPieceEntity(int x, int y, Qt3DCore::QNode *parent)
 {
     //Transform
     auto tranform = new Qt3DCore::QTransform(this);
-    tranform->setTranslation(QVector3D(m_xPos, m_yPos, 0));
+    tranform->setTranslation(QVector3D(m_xPos, 0, m_yPos));
     addComponent(tranform);
 
     //Mesh

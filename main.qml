@@ -49,6 +49,10 @@ ApplicationWindow {
                     text: board.tetrixGame.linesRemoved
                 }
             }
+            Label {
+                text: "Instuctions: \n Left and Right -> Move Piece\nUp and Down -> Rotate Piece\n Space -> Drop Piece"
+            }
+
             Button {
                 text: "Start"
                 onClicked: {

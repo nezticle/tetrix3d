@@ -9,13 +9,16 @@ TetrixBoard::TetrixBoard(Qt3DCore::QEntity *parentEntity, QObject *parent)
     , m_linesRemoved(0)
     , m_piecesDropped(0)
 {
+    m_board.resize(BoardWidth * BoardHeight);
+    m_blocks.resize(BoardWidth * BoardHeight);
+
     m_isStarted = false;
     m_isPaused = false;
     clearBoard();
 
     for (int y = 0; y < BoardHeight; ++y) {
         for (int x = 0; x < BoardWidth; ++x) {
-            m_blocks.append(new TetrixPieceEntity(x, y, parentEntity));
+            m_blocks[BoardWidth * y + x] = (new TetrixPieceEntity(x, y, parentEntity));
         }
     }
 
@@ -109,6 +112,36 @@ void TetrixBoard::setLinesRemoved(int linesRemoved)
     emit linesRemovedChanged(linesRemoved);
 }
 
+void TetrixBoard::actionLeft()
+{
+    tryMove(m_curPiece, m_curX - 1, m_curY);
+}
+
+void TetrixBoard::actionRight()
+{
+    tryMove(m_curPiece, m_curX + 1, m_curY);
+}
+
+void TetrixBoard::actionUp()
+{
+    tryMove(m_curPiece.rotatedRight(), m_curX, m_curY);
+}
+
+void TetrixBoard::actionDown()
+{
+    tryMove(m_curPiece.rotatedLeft(), m_curX, m_curY);
+}
+
+void TetrixBoard::actionDrop()
+{
+    dropDown();
+}
+
+void TetrixBoard::actionDropOne()
+{
+    oneLineDown();
+}
+
 void TetrixBoard::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == m_timer.timerId()) {
@@ -152,7 +185,7 @@ void TetrixBoard::updateEntitites()
         for (int i = 0; i < 4; ++i) {
             int x = m_curX + m_curPiece.x(i);
             int y = m_curY - m_curPiece.y(i);
-            auto entity = m_blocks[(y * BoardHeight) + x];
+            auto entity = m_blocks[(y * BoardWidth) + x];
             entity->setShape(m_curPiece.shape());
             entity->setVisible(true);
         }

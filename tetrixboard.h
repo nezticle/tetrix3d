@@ -34,6 +34,13 @@ public slots:
     void setLevel(int level);
     void setLinesRemoved(int linesRemoved);
 
+    void actionLeft();
+    void actionRight();
+    void actionUp();
+    void actionDown();
+    void actionDrop();
+    void actionDropOne();
+
 signals:
     void scoreChanged(int score);
     void levelChanged(int level);
@@ -46,7 +53,7 @@ private:
     void update();
     void updateEntitites();
 
-    TetrixShape &shapeAt(int x, int y) { return m_board[(y * BoardHeight) + x]; }
+    TetrixShape &shapeAt(int x, int y) { return m_board[(y * BoardWidth) + x]; }
     int timeoutTime() { return 1000 / (1 + m_level); }
     void clearBoard();
     void dropDown();
@@ -65,7 +72,8 @@ private:
     TetrixPiece m_nextPiece;
     int m_curX;
     int m_curY;
-    TetrixShape m_board[BoardWidth * BoardHeight];
+    QVector<TetrixShape> m_board;
+    //TetrixShape m_board[BoardWidth * BoardHeight];
     //TetrixPieceEntity *m_blocks[BoardWidth * BoardHeight];
     QVector<TetrixPieceEntity *> m_blocks;
 

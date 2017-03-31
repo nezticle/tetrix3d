@@ -55,18 +55,21 @@ ApplicationWindow {
 
             Button {
                 text: "Start"
+                focusPolicy: Qt.NoFocus
                 onClicked: {
                     board.tetrixGame.start();
                 }
             }
             Button {
                 text: "Pause"
+                focusPolicy: Qt.NoFocus
                 onClicked: {
                     board.tetrixGame.pause();
                 }
             }
             Button {
                 text: "Quit"
+                focusPolicy: Qt.NoFocus
                 onClicked: {
                     window.close();
                 }

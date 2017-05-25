@@ -50,23 +50,26 @@ ApplicationWindow {
                 }
             }
             Label {
-                text: "Instuctions: \n Left and Right -> Move Piece\nUp and Down -> Rotate Piece\n Space -> Drop Piece"
+                text: "Instructions: \n Left and Right -> Move Piece\n Up and Down -> Rotate Piece\n Space -> Drop Piece\n D -> Drop One"
             }
 
             Button {
                 text: "Start"
+                focusPolicy: Qt.NoFocus
                 onClicked: {
                     board.tetrixGame.start();
                 }
             }
             Button {
                 text: "Pause"
+                focusPolicy: Qt.NoFocus
                 onClicked: {
                     board.tetrixGame.pause();
                 }
             }
             Button {
                 text: "Quit"
+                focusPolicy: Qt.NoFocus
                 onClicked: {
                     window.close();
                 }

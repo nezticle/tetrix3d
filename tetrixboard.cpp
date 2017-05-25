@@ -114,32 +114,38 @@ void TetrixBoard::setLinesRemoved(int linesRemoved)
 
 void TetrixBoard::actionLeft()
 {
-    tryMove(m_curPiece, m_curX - 1, m_curY);
+    if (!m_isPaused)
+        tryMove(m_curPiece, m_curX - 1, m_curY);
 }
 
 void TetrixBoard::actionRight()
 {
-    tryMove(m_curPiece, m_curX + 1, m_curY);
+    if (!m_isPaused)
+        tryMove(m_curPiece, m_curX + 1, m_curY);
 }
 
 void TetrixBoard::actionUp()
 {
-    tryMove(m_curPiece.rotatedRight(), m_curX, m_curY);
+    if (!m_isPaused)
+        tryMove(m_curPiece.rotatedRight(), m_curX, m_curY);
 }
 
 void TetrixBoard::actionDown()
 {
-    tryMove(m_curPiece.rotatedLeft(), m_curX, m_curY);
+    if (!m_isPaused)
+        tryMove(m_curPiece.rotatedLeft(), m_curX, m_curY);
 }
 
 void TetrixBoard::actionDrop()
 {
-    dropDown();
+    if (!m_isPaused)
+        dropDown();
 }
 
 void TetrixBoard::actionDropOne()
 {
-    oneLineDown();
+    if (!m_isPaused)
+        oneLineDown();
 }
 
 void TetrixBoard::timerEvent(QTimerEvent *event)
